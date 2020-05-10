@@ -39,6 +39,8 @@ class YouTube320:
     def __download(link):
         out_dir = os.path.join(os.path.dirname(__file__), "..", "out")
         file_name = parse.unquote_plus(parse.unquote_plus(str(link.split("/")[-1]))).replace("&amp;", "&")
+        for c in ['<', '>', ':', '"', '/', '\\', '|', '?', '*']:
+            file_name = file_name.replace(c, "")
         local_file = os.path.join(out_dir, file_name)
 
         with requests.get(link, stream=True) as r:
